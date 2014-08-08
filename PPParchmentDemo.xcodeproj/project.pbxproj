@@ -22,6 +22,7 @@
 		0D4D41E01994CE1B0019552F /* FoldableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D41DF1994CE1B0019552F /* FoldableVC.m */; };
 		0D4D41E41994CEA90019552F /* front2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41E21994CEA90019552F /* front2.jpg */; };
 		0D4D41E51994CEA90019552F /* front.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41E31994CEA90019552F /* front.jpg */; };
+		0D4D41E71994D2780019552F /* FoldableVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41E61994D2780019552F /* FoldableVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		0D4D41DF1994CE1B0019552F /* FoldableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldableVC.m; sourceTree = "<group>"; };
 		0D4D41E21994CEA90019552F /* front2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front2.jpg; sourceTree = "<group>"; };
 		0D4D41E31994CEA90019552F /* front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front.jpg; sourceTree = "<group>"; };
+		0D4D41E61994D2780019552F /* FoldableVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoldableVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			children = (
 				0D4D41DE1994CE1B0019552F /* FoldableVC.h */,
 				0D4D41DF1994CE1B0019552F /* FoldableVC.m */,
+				0D4D41E61994D2780019552F /* FoldableVC.xib */,
 			);
 			path = PPParchment;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				0D4D41E51994CEA90019552F /* front.jpg in Resources */,
 				0D4D41B91994CDEA0019552F /* InfoPlist.strings in Resources */,
 				0D4D41C11994CDEA0019552F /* Images.xcassets in Resources */,
+				0D4D41E71994D2780019552F /* FoldableVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,6 @@ const double degToRadRatio = M_PI/180.0;
     CALayer* upperHalf;
     CALayer* lowerHalf;
     UIView* _animatedView;
-    UIImageView* _iv;
     
     CAShapeLayer* upperHalfShadowLayer;
     CAShapeLayer* lowerHalfShadowLayer;
@@ -39,73 +38,54 @@ const double degToRadRatio = M_PI/180.0;
 {
     [super viewDidLoad];
     
-    _iv= [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _iv.image = [UIImage imageNamed:@"front.jpg"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    upperHalfShadowLayer = [CAShapeLayer layer];
-    lowerHalfShadowLayer = [CAShapeLayer layer];
 
-    
-    upperHalfShadowLayer.anchorPoint = CGPointMake(0.5, 1.0);
-    lowerHalfShadowLayer.anchorPoint = CGPointMake(0.5, 0.0);
-    
-    upperHalfShadowLayer.position = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
-    lowerHalfShadowLayer.position = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
-    
-    upperHalfShadowLayer.bounds = CGRectMake(0, 0,
-                                            self.view.bounds.size.width, self.view.bounds.size.height/2);
-    lowerHalfShadowLayer.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2);
-
-    // Shadows
-    // TODO: remove unpleasant shadow from upper layer
-    upperHalfShadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:upperHalfShadowLayer.bounds].CGPath;
-    lowerHalfShadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:lowerHalfShadowLayer.bounds].CGPath;
-    
-    upperHalfShadowLayer.shadowColor = [UIColor blackColor].CGColor;
-    upperHalfShadowLayer.shadowRadius = 10.0;
-    upperHalfShadowLayer.shadowOpacity = 0.5;
-    upperHalfShadowLayer.zPosition = 1;
-    
-    lowerHalfShadowLayer.shadowColor = [UIColor blackColor].CGColor;
-    lowerHalfShadowLayer.shadowRadius = 10;
-    lowerHalfShadowLayer.shadowOpacity = 0.5;
-    lowerHalfShadowLayer.zPosition = 1;
     
     upperHalf = [CALayer layer];
     lowerHalf = [CALayer layer];
-    upperHalf.frame = upperHalfShadowLayer.bounds;
-    lowerHalf.frame = lowerHalfShadowLayer.bounds;
-
+    
     upperHalf.transform = perspectiveIdentity();
     lowerHalf.transform = perspectiveIdentity();
     
-    upperHalfShadowLayer.transform = perspectiveIdentity();
-    lowerHalfShadowLayer.transform = perspectiveIdentity();
     
+    upperHalf.anchorPoint = CGPointMake(0.5, 1.0);
+    lowerHalf.anchorPoint = CGPointMake(0.5, 0.0);
+    
+    upperHalf.position = CGPointMake(self.view.bounds.size.width/2,
+                                     self.view.bounds.size.height/2);
+    lowerHalf.position = CGPointMake(self.view.bounds.size.width/2,
+                                     self.view.bounds.size.height/2);
+    
+    upperHalf.bounds = CGRectMake(0,
+                                  0,
+                                  self.view.bounds.size.width,
+                                  self.view.bounds.size.height/2);
+    lowerHalf.bounds = CGRectMake(0,
+                                  0,
+                                  self.view.bounds.size.width,
+                                  self.view.bounds.size.height/2);
     
     _animatedView = [[UIView alloc] initWithFrame:self.view.bounds];
     
-    [_animatedView.layer addSublayer:upperHalfShadowLayer];
-    [_animatedView.layer addSublayer:lowerHalfShadowLayer];
-    
-    [upperHalfShadowLayer addSublayer:upperHalf];
-    [lowerHalfShadowLayer addSublayer:lowerHalf];
-    
+    [_animatedView.layer addSublayer:upperHalf];
+    [_animatedView.layer addSublayer:lowerHalf];
+
     [self setupLayers];
-    //curtainView.hidden = YES;
-    [self.view addSubview:_animatedView];
+    _animatedView.hidden = YES;
+    
+    // All views have a superview, right?
+    [self.view.superview addSubview:_animatedView];
     
     UITapGestureRecognizer *foldTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fold:)];
     [self.view addGestureRecognizer:foldTap];
 }
 
 - (void)setupLayers {
-    CGImageRef imgRef = _iv.image.CGImage;
+    CGImageRef imgRef = [self captureView]; //_iv.image.CGImage;
     upperHalf.contents = (__bridge id)imgRef;
     lowerHalf.contents = (__bridge id)imgRef;
 
@@ -133,13 +113,15 @@ const NSTimeInterval dur = 1;
 - (void)fold:(UITapGestureRecognizer *)gr
 {
     [self setupLayers];
-    //curtainView.hidden = NO;
+    _animatedView.hidden = NO;
+    self.view.hidden = YES;
+    
     
     [CATransaction begin];
     [CATransaction setAnimationDuration:dur];
     {
-        CATransform3D a = CATransform3DScale(upperHalfShadowLayer.transform, scale, scale, scale);
-        CATransform3D b = CATransform3DScale(lowerHalfShadowLayer.transform, scale, scale, scale);
+        CATransform3D a = CATransform3DScale(upperHalf.transform, scale, scale, scale);
+        CATransform3D b = CATransform3DScale(lowerHalf.transform, scale, scale, scale);
         
         
         // Left-right rotate
@@ -151,8 +133,8 @@ const NSTimeInterval dur = 1;
         //CATransform3D c = CATransform3DRotate(a, RADIANS(angle*2), 1.0, 0.0, 0.0);
         CATransform3D d = CATransform3DRotate(b, RADIANS(179.9), 1.0, 0.0, 0.0);
         
-        upperHalfShadowLayer.transform = a;
-        lowerHalfShadowLayer.transform = d;
+        upperHalf.transform = a;
+        lowerHalf.transform = d;
     }
     [CATransaction commit];
     
@@ -164,20 +146,20 @@ const NSTimeInterval dur = 1;
 - (void)moveAnimation {
     CGFloat dist = self.view.bounds.size.width;
     
-    CATransform3D a = CATransform3DInvert(upperHalfShadowLayer.transform);
-    CATransform3D b = CATransform3DInvert(lowerHalfShadowLayer.transform);
+    CATransform3D a = CATransform3DInvert(upperHalf.transform);
+    CATransform3D b = CATransform3DInvert(lowerHalf.transform);
     
     a = CATransform3DConcat(CATransform3DMakeTranslation(dist, 0, 0), a);
     b = CATransform3DConcat(CATransform3DMakeTranslation(dist, 0, 0), b);
     
-    a = CATransform3DConcat(upperHalfShadowLayer.transform, a);
-    b = CATransform3DConcat(lowerHalfShadowLayer.transform, b);
+    a = CATransform3DConcat(upperHalf.transform, a);
+    b = CATransform3DConcat(lowerHalf.transform, b);
     
     [CATransaction begin];
     [CATransaction setAnimationDuration:dur];
     {
-        upperHalfShadowLayer.transform = a;
-        lowerHalfShadowLayer.transform = b;
+        upperHalf.transform = a;
+        lowerHalf.transform = b;
     }
     [CATransaction commit];
     
@@ -188,10 +170,23 @@ const NSTimeInterval dur = 1;
 
 - (void)unfold
 {
-    //curtainView.hidden = YES;
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:dur];
+    {
+        upperHalf.transform = perspectiveIdentity();
+        lowerHalf.transform = perspectiveIdentity();
+    }
+    [CATransaction commit];
     
-    upperHalfShadowLayer.transform = perspectiveIdentity();
-    lowerHalfShadowLayer.transform = perspectiveIdentity();
+    [self performSelector:@selector(finalize)
+               withObject:nil
+               afterDelay:dur];
+}
+
+- (void)finalize
+{
+    _animatedView.hidden = YES;
+    self.view.hidden = NO;
 }
 
 CATransform3D perspectiveIdentity()
@@ -200,6 +195,25 @@ CATransform3D perspectiveIdentity()
     // DISCUSSION: http://www.songho.ca/opengl/gl_projectionmatrix.html
     
     return (CATransform3D) {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.003, 0, 0, 0, 1};
+}
+
+- (CGImageRef)captureView {
+    CGRect screenRect = self.view.bounds;
+    
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    [[UIColor whiteColor] set];
+    CGContextFillRect(ctx, screenRect);
+    
+    [self.view.layer renderInContext:ctx];
+    
+    CGImageRef result = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext());
+    //CGImageRef result = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+    
+    UIGraphicsEndImageContext();
+    
+    return result;
 }
 
 @end
