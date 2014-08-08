@@ -19,6 +19,9 @@
 		0D4D41CA1994CDEA0019552F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4D41B21994CDEA0019552F /* UIKit.framework */; };
 		0D4D41D21994CDEA0019552F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41D01994CDEA0019552F /* InfoPlist.strings */; };
 		0D4D41D41994CDEA0019552F /* PPParchmentDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D41D31994CDEA0019552F /* PPParchmentDemoTests.m */; };
+		0D4D41E01994CE1B0019552F /* FoldableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D41DF1994CE1B0019552F /* FoldableVC.m */; };
+		0D4D41E41994CEA90019552F /* front2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41E21994CEA90019552F /* front2.jpg */; };
+		0D4D41E51994CEA90019552F /* front.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D41E31994CEA90019552F /* front.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,10 @@
 		0D4D41CF1994CDEA0019552F /* PPParchmentDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PPParchmentDemoTests-Info.plist"; sourceTree = "<group>"; };
 		0D4D41D11994CDEA0019552F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D4D41D31994CDEA0019552F /* PPParchmentDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPParchmentDemoTests.m; sourceTree = "<group>"; };
+		0D4D41DE1994CE1B0019552F /* FoldableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldableVC.h; sourceTree = "<group>"; };
+		0D4D41DF1994CE1B0019552F /* FoldableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldableVC.m; sourceTree = "<group>"; };
+		0D4D41E21994CEA90019552F /* front2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front2.jpg; sourceTree = "<group>"; };
+		0D4D41E31994CEA90019552F /* front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +84,8 @@
 		0D4D41A21994CDEA0019552F = {
 			isa = PBXGroup;
 			children = (
+				0D4D41E11994CE900019552F /* Resources */,
+				0D4D41DD1994CDFE0019552F /* PPParchment */,
 				0D4D41B41994CDEA0019552F /* PPParchmentDemo */,
 				0D4D41CD1994CDEA0019552F /* PPParchmentDemoTests */,
 				0D4D41AD1994CDEA0019552F /* Frameworks */,
@@ -142,6 +151,24 @@
 				0D4D41D01994CDEA0019552F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0D4D41DD1994CDFE0019552F /* PPParchment */ = {
+			isa = PBXGroup;
+			children = (
+				0D4D41DE1994CE1B0019552F /* FoldableVC.h */,
+				0D4D41DF1994CE1B0019552F /* FoldableVC.m */,
+			);
+			path = PPParchment;
+			sourceTree = "<group>";
+		};
+		0D4D41E11994CE900019552F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0D4D41E21994CEA90019552F /* front2.jpg */,
+				0D4D41E31994CEA90019552F /* front.jpg */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +246,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D4D41E41994CEA90019552F /* front2.jpg in Resources */,
+				0D4D41E51994CEA90019552F /* front.jpg in Resources */,
 				0D4D41B91994CDEA0019552F /* InfoPlist.strings in Resources */,
 				0D4D41C11994CDEA0019552F /* Images.xcassets in Resources */,
 			);
@@ -240,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D4D41BF1994CDEA0019552F /* AppDelegate.m in Sources */,
+				0D4D41E01994CE1B0019552F /* FoldableVC.m in Sources */,
 				0D4D41BB1994CDEA0019552F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
